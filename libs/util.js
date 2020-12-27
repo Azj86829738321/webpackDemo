@@ -2,8 +2,8 @@ import axios from 'axios';
 
 //基本配置
 const Util = {
-    imgPath:'http://127.0.0.1:8011/img/',
-    apiPath:'http://127.0.0.1:8080/'
+    imgPath:'http://127.0.0.1:8021/img/',
+    apiPath:'http://127.0.0.1:8020/'
 }
 
 Util.ajax =axios.create({

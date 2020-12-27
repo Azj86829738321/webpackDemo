@@ -3,13 +3,13 @@ const request = require('request')
 
 const hostname = '127.0.0.1'
 // 因为我电脑这两个端口被占用了。所以换了两个。可以自己随便更改
-const port = 8010
-const imgPort = 8011
+const port = 8020
+const imgPort = 8021
 
 // 文本代理
 const textServer = http.createServer((req, res) => {
   // 新的知乎日报api。之前的出问题了
-  const url = 'http://daily.zhihu.com/api/4' + req.url
+  const url = 'http://localhost:8010/' + req.url
   const options = {
     url: url
   }
