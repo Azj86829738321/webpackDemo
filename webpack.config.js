@@ -6,10 +6,10 @@ var config ={
      entry:{
           main:"./main"
       },
-     output:{
+       output:{
        path: path.join(__dirname,'./dist') ,
-      publicPath:'/dist/',
-     filename:'main.js'
+       publicPath:'/dist/',
+       filename:'main.js'
     },
     module: {
         rules:[

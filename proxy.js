@@ -30,6 +30,29 @@ const textServer = http.createServer((req, res) => {
 textServer.listen(port, hostname, () => {
   console.log(`textServer run at http://${hostname}:${port}/`)
 })
+
+
+// 文本代理
+const textServerZhi = http.createServer((req, res) => {
+  // 新的知乎日报api。之前的出问题了
+  const url = 'http://localhost:8010/' + req.url
+  const options = {
+    url: url
+  }
+
+  function callback (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      // utf-8保证中文显示
+      res.setHeader('Content-Type', 'text/plain;charset=UTF-8')
+      // 跨域设置。允许所有跨域
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      // 返回内容
+      res.end(body)
+    }
+  }
+  request.get(options, callback)
+})
+
 // img代理
 const imgServer = http.createServer((req, res) => {
   const url = req.url.split('/img/')[1]
