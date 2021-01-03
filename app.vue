@@ -2,7 +2,7 @@
    <div>
        <div class="daily">
            <div class="daily-menu">
-               <div class="daily-menu-item" @click="handleToRecommend">每日推荐</div>
+               <div class="daily-menu-item" :class="{on:type==='recommend'}"@click="handleToRecommend">每日推荐</div>
                <!--class 动态设置class-->
                <div class="daily-menu-item" :class="{on:type==='daily'}" @click="showThemes = !showThemes">主题日报</div>
                <div v-if="showThemes">
@@ -13,6 +13,22 @@
                    </ul>
                </div>
            </div>
+       </div>
+       <!--中间栏-->
+       <div class="daily-list">
+            <template v-if="type ==='recommend'">
+                <div v-for="list in recommendList">
+                    <div> {{list.date}}</div>
+                    <Item v-for="map in list.stories" :data="map"></Item>
+                </div>
+
+
+            </template>
+           <template v-if="type==='daily'">
+               <div v-for="">
+
+               </div>
+           </template>
 
        </div>
    </div>
@@ -21,8 +37,11 @@
 
 <script>
     import $ from './libs/util.js';
+    import Item from './components/item.vue';
     export default {
-
+        components:{
+            Item:Item
+        },
         data(){
             return {
                 type:'daily',
@@ -50,7 +69,7 @@
                 this.themeId = id;
                 this.list = [];
                 $.ajax.get('theme/' + id).then(res => {
-                    this.list = res.stories
+                    this.list = res.others
                         .filter(item => item.type !== 1);
                 })
             },
@@ -58,7 +77,7 @@
                // this.isLoading = true;
                 const prevDay = $.prevDay(this.dailyTime + 86400000);
                 console.log(prevDay);
-                $.ajax.get('news/before/' + prevDay).then(res => {
+                $.ajax.get('news/before').then(res => {
                     this.recommendList.push(res);
                   //  this.isLoading = false;
                 })
@@ -68,16 +87,7 @@
                     this.themes =res.others;
                 })
             },
-            handleToTheme(id){
-                this.themeId = id;
-                this.type = 'daily';
-                this.list =[]
-                $.ajax.get("stories").then(res =>{
-                    this.list = res.stories.
-                    filter(item =>item.type !==1);
-                    console.log(this.list);
-                })
-            }
+
         }
 
     }

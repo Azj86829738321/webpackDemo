@@ -49,3 +49,13 @@ html,body{
 .daily-menu ul li a:hover, .daily-menu ul li a.on{
     color: #3399ff;
 }
+
+.daily-list{
+    width: 300px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 150px;
+    overflow: auto;
+    border-right: 1px solid #d7dde4;
+}
